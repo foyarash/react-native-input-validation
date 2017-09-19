@@ -1,0 +1,24 @@
+{
+  "name": "react-native-input-validation",
+  "version": "1.0.0",
+  "description": "Simple customizable text input which can validate its content",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/foyarash/react-native-input-validation.git"
+  },
+  "keywords": [
+    "react-native",
+    "input",
+    "validation"
+  ],
+  "author": "Hugo FOYART",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/foyarash/react-native-input-validation/issues"
+  },
+  "homepage": "https://github.com/foyarash/react-native-input-validation#readme"
+}
