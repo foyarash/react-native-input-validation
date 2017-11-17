@@ -104,10 +104,10 @@ export default class InputValidation extends Component {
     onValidatorExecuted: null,
     errorMessage: 'Invalid entry',
     errorMessageStyle: { color: 'red' },
-    errorInputContainerStyle: { borderColor: ‘red’, borderWidth: 1 },
+    errorInputContainerStyle: { borderColor: 'red', borderWidth: 1 },
     iconName: null,
     iconSize: 20,
-    iconColor: ‘#000’,
+    iconColor: '#000',
     iconComponent: null,
   };
 
