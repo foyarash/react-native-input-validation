@@ -1,7 +1,3 @@
-/**
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   View,
@@ -11,7 +7,7 @@ import {
   ViewPropTypes,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import * as _ from 'lodash';
+import debounce from 'lodash/debounce';
 
 const styles = StyleSheet.create({
   container: {
@@ -95,6 +91,22 @@ export default class InputValidation extends Component {
      * Icon color
      */
     iconColor: PropTypes.string,
+    /**
+     * Input label
+     */
+    label: PropTypes.string,
+    /**
+     * Label style
+     */
+    labelStyle: Text.propTypes.style,
+    /**
+     * Input container style
+     */
+    textInputContainerStyle: TextInput.propTypes.style,
+    /**
+     * Input ref
+     */
+    inputRef: PropTypes.func
   };
 
   static defaultProps = {
@@ -109,6 +121,10 @@ export default class InputValidation extends Component {
     iconSize: 20,
     iconColor: '#000',
     iconComponent: null,
+    label: null,
+    labelStyle: {},
+    textInputContainerStyle: {},
+    inputRef: null
   };
 
   /**
@@ -125,11 +141,10 @@ export default class InputValidation extends Component {
     super();
     /**
      * Component's state
-     * @type {{isValid: boolean, displayErrorMessage: boolean}}
+     * @type {{isValid: boolean}}
      */
     this.state = {
       isValid: false,
-      displayErrorMessage: false,
     };
   }
 
@@ -139,14 +154,15 @@ export default class InputValidation extends Component {
    * Initializes textValue
    */
   componentDidMount() {
-    const { validatorExecutionDelay, defaultValue } = this.props;
+    const { validatorExecutionDelay, defaultValue, value } = this.props;
 
-    this.triggerValidators = _.debounce(this.triggerValidators, validatorExecutionDelay);
+    this.triggerValidators = debounce(this.triggerValidators, validatorExecutionDelay);
     /**
      * Input value
      * @type {InputValidation.props.defaultValue|string}
      */
-    this.textValue = defaultValue || '';
+    this.textValue = defaultValue || value || '';
+    this.executeValidators(this.textValue)
   }
 
   /**
@@ -169,12 +185,10 @@ export default class InputValidation extends Component {
       required,
     } = this.props;
     let isValid = this.state.isValid;
-    let displayErrorMessage = true;
     const validatorRegexp = new RegExp(this.customValidators[validator] || validator);
 
     if ((value.length === 0 || !value) && (validator || customValidator)) {
       isValid = true;
-      displayErrorMessage = false;
     } else if (!validator && !customValidator) {
       isValid = true;
     } else if (validator in this.customValidators) {
@@ -187,7 +201,7 @@ export default class InputValidation extends Component {
       isValid = customValidator(value);
     }
 
-    this.setState({ isValid, displayErrorMessage }, () => {
+    this.setState({ isValid }, () => {
       if (onValidatorExecuted) onValidatorExecuted(isValid)
     });
   }
@@ -229,11 +243,15 @@ export default class InputValidation extends Component {
       iconColor,
       iconComponent,
       onChangeText,
+      onFocus,
+      textInputContainerStyle,
+      label,
+      labelStyle,
+      inputRef,
       ...props,
     } = this.props;
     const {
       isValid,
-      displayErrorMessage,
     } = this.state;
 
     const Icon = iconComponent;
@@ -244,7 +262,8 @@ export default class InputValidation extends Component {
           styles.container,
           containerStyle || {},
         ]}>
-        <View style={[styles.textInputContainer, !isValid ? errorInputContainerStyle : {}]}>
+        {label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
+        <View style={[styles.textInputContainer, textInputContainerStyle, !isValid ? errorInputContainerStyle : {}]}>
           {
             iconComponent && iconName && (
               <Icon name={iconName} size={iconSize} color={iconColor} style={styles.icon} />
@@ -255,14 +274,18 @@ export default class InputValidation extends Component {
               onChangeText && onChangeText(text);
               this.onChangeText(text);
             }}
-            onFocus={() => this.executeValidators(this.textValue)}
+            onFocus={() => {
+              onFocus && onFocus()
+              this.executeValidators(this.textValue)
+            }}
             style={[
               styles.textInput,
               style || {},
             ]}
+            ref={inputRef}
             {...props} />
         </View>
-        { !isValid && displayErrorMessage && (
+        { !isValid && (
           <Text
             style={[
               styles.errorMessageStyle,
