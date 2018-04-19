@@ -1,6 +1,6 @@
 {
   "name": "react-native-input-validation",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description":
     "Simple customizable text input which can validate its content",
   "main": "index.js",
