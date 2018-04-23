@@ -12,14 +12,10 @@ import debounce from 'lodash/debounce';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 1,
   },
   textInputContainer: {
     height: 46,
     flexDirection: 'row',
-    borderRadius: 23,
-    paddingRight: 5,
-    paddingLeft: 15,
     alignItems: 'center',
   },
   textInput: {
@@ -162,22 +158,22 @@ export default class InputValidation extends Component {
      * @type {InputValidation.props.defaultValue|string}
      */
     this.textValue = defaultValue || value || '';
-    this.executeValidators(this.textValue)
+    this.executeValidators()
   }
 
   /**
    * Function to execute the validators
    * @param {string} value Value to validate
    */
-  triggerValidators(value) {
-    this.executeValidators(value);
+  triggerValidators() {
+    this.executeValidators();
   }
 
   /**
    * Function which execute the validators on a value
    * @param {string} value Value on which the validators should be executed
    */
-  executeValidators(value) {
+  executeValidators() {
     const {
       validator,
       customValidator,
@@ -186,6 +182,7 @@ export default class InputValidation extends Component {
     } = this.props;
     let isValid = this.state.isValid;
     const validatorRegexp = new RegExp(this.customValidators[validator] || validator);
+    const value = this.textValue
 
     if ((value.length === 0 || !value) && (validator || customValidator)) {
       isValid = true;
@@ -220,7 +217,7 @@ export default class InputValidation extends Component {
    */
   onChangeText(value) {
     this.textValue = value;
-    this.triggerValidators(value);
+    this.triggerValidators();
   }
 
   /**

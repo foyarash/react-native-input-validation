@@ -1,13 +1,11 @@
-## **Installation** ##
+## **Installation**
 
 Using npm: `npm i -S react-native-input-validation`
-Using yarn:  `yarn add react-native-input-validation`
+Using yarn: `yarn add react-native-input-validation`
 
+---
 
-----------
-
-
-## **Quick Start** ##
+## **Quick Start**
 
 First `import InputValidation from 'react-native-input-validation`
 
@@ -17,14 +15,22 @@ Then simply use it in your component like this:
 
 This will display a text input. When you type, the "email" validator (already defined in the component) will be tested with the input value after 100ms, then it will trigger the onValidatorExecuted callback, passing the validity of the input.
 
+---
 
-----------
+## **Run the example**
 
-## **Props and methods** ##
+* `cd example`
+* `npm install` or `yarn`
+* `react-native run-ios` or `react-native run-android`
+
+---
+
+## **Props and methods**
 
 The input accepts every props from TextInput component.
 
 **Props**
+
 <table>
     <thead>
         <tr>
@@ -107,10 +113,35 @@ The input accepts every props from TextInput component.
             <td></td>
             <td>Color of the icon displayed at the left of the input</td>
         </tr>
+        <tr>
+            <td>label</td>
+            <td>string</td>
+            <td>null</td>
+            <td>Label of the input</td>
+        </tr>
+        <tr>
+            <td>labelStyle</td>
+            <td>Text style</td>
+            <td></td>
+            <td>Style applied to the label</td>
+        </tr>
+        <tr>
+            <td>textInputContainerStyle</td>
+            <td>ViewPropTypes.style</td>
+            <td></td>
+            <td>Style applied to the input container, which wraps the icon and the input</td>
+        </tr>
+        <tr>
+            <td>inputRef</td>
+            <td>function</td>
+            <td></td>
+            <td>Ref for the TextInput</td>
+        </tr>
     </tbody>
 </table>
 
 **Methods**
+
 <table>
     <thead>
         <tr>
@@ -130,13 +161,22 @@ The input accepts every props from TextInput component.
             <td></td>
             <td>Returns the validity of the input</td>
         </tr>
+        <tr>
+            <td>triggerValidators</td>
+            <td></td>
+            <td>Trigger the validators execution with the delay</td>
+        </tr>
+        <tr>
+            <td>executeValidators</td>
+            <td></td>
+            <td>Execute the validators without delay</td>
+        </tr>
     </tbody>
 </table>
 
+---
 
-----------
-
-## **Contributing** ##
+## **Contributing**
 
 If you have any problem, leave an issue [here](https://github.com/foyarash/react-native-input-validation/issues)
 
