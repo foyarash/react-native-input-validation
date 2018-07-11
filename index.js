@@ -178,7 +178,7 @@ export default class InputValidation extends Component {
       validator,
       customValidator,
       onValidatorExecuted,
-      required,
+      required
     } = this.props;
     let isValid = this.state.isValid;
     const validatorRegexp = new RegExp(this.customValidators[validator] || validator);
@@ -245,10 +245,10 @@ export default class InputValidation extends Component {
       label,
       labelStyle,
       inputRef,
-      ...props,
+      ...props
     } = this.props;
     const {
-      isValid,
+      isValid
     } = this.state;
 
     const Icon = iconComponent;
