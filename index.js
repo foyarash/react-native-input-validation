@@ -4,32 +4,32 @@ import {
   StyleSheet,
   TextInput,
   Text,
-  ViewPropTypes,
+  ViewPropTypes
 } from 'react-native';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   textInputContainer: {
     height: 46,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   textInput: {
     height: 46,
     borderWidth: 0,
-    flex: 1,
+    flex: 1
   },
   errorMessageStyle: {
     fontSize: 12,
     backgroundColor: 'transparent',
-    paddingLeft: 15,
+    paddingLeft: 15
   },
   icon: {
-    marginRight: 9,
+    marginRight: 9
   }
 });
 
@@ -130,7 +130,7 @@ export default class InputValidation extends Component {
   customValidators = {
     email: '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$',
     password: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$',
-    username: '^\\w{6,20}$',
+    username: '^\\w{6,20}$'
   };
 
   constructor() {
@@ -140,7 +140,7 @@ export default class InputValidation extends Component {
      * @type {{isValid: boolean}}
      */
     this.state = {
-      isValid: false,
+      isValid: false
     };
   }
 
@@ -177,8 +177,7 @@ export default class InputValidation extends Component {
     const {
       validator,
       customValidator,
-      onValidatorExecuted,
-      required
+      onValidatorExecuted
     } = this.props;
     let isValid = this.state.isValid;
     const validatorRegexp = new RegExp(this.customValidators[validator] || validator);
@@ -277,7 +276,7 @@ export default class InputValidation extends Component {
             }}
             style={[
               styles.textInput,
-              style || {},
+              style || {}
             ]}
             ref={inputRef}
             {...props} />
@@ -286,7 +285,7 @@ export default class InputValidation extends Component {
           <Text
             style={[
               styles.errorMessageStyle,
-              errorMessageStyle,
+              errorMessageStyle
             ]}>
             {errorMessage}
           </Text>
